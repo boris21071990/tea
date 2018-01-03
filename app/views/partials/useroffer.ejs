@@ -1,0 +1,29 @@
+<div class="list-offer" data-id="<%= userOffer._id %>" id="list-offer-<%= userOffer._id %>">
+    <div class="list-offer-time">
+        <% const date = new Date(userOffer.createdAt) %>
+        <%= date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear() + ' ' +  date.getHours() + ':' + date.getMinutes() %>
+    </div>
+    <div class="list-offer-user-photo">
+        <img src="photos/<%= userOffer.user.photo %>" />
+    </div>
+    <div class="list-offer-user-name">
+        <%= userOffer.user.name %>
+    </div>
+    <div class="list-offer-image">
+        <img src="images/<%= userOffer.typeOffer.image %>" />
+    </div>
+    <div class="list-offer-name">
+        <%= userOffer.typeOffer.name %>
+    </div>
+    <div class="list-offer-joined-users"></div>
+    <% if(owner){ %>
+        <div class="list-offer-buttons">
+            <span class="list-offer-button-cancel">Отменить</span>
+        </div>
+    <% } else { %>
+        <div class="list-offer-buttons">
+            <span class="list-offer-button-yes">Пойду</span>
+            <span class="list-offer-button-no">Не пойду</span>
+        </div>
+    <% } %>
+</div>

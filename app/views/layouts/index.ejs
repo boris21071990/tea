@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        <%= block('metaTitle') %>
+    </title>
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <script src="/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="/socket.io/socket.io.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+
+            if('Notification' in window){
+
+                if(Notification.permission !== 'denied'){
+
+                    Notification.requestPermission();
+
+                }
+
+            }
+
+            function notify(message){
+
+                if('Notification' in window){
+
+                    if(Notification.permission === 'granted'){
+
+                        var notification = new Notification(message);
+
+                    }
+
+                }
+
+            }
+
+            var socket = io.connect('http://192.168.34.65:2557');
+
+            $('#container').on('click', '.type-offer-wrapper', function(){
+
+                socket.emit('userOfferAdd', {
+                    id: $(this).data('id')
+                });
+
+            });
+
+            $('#container').on('click', '.list-offer-button-cancel', function(){
+
+                socket.emit('userOfferCancel', {
+                    id: $(this).closest('.list-offer').data('id')
+                });
+
+            });
+
+            socket.on('serverOfferAdd', function(data){
+
+                if(data.status == 'success'){
+
+                    $('.list-offers').prepend(data.content);
+
+                    if(data.message){
+
+                        notify(data.message);
+
+                    }
+
+                } else {
+
+                    alert(data.content);
+
+                }
+
+            });
+
+            socket.on('serverUserOfferCancel', function(data){
+
+                if(data.status == 'success'){
+
+                    var userOffer = $('#list-offer-' + data.content);
+
+                    if(userOffer.length){
+
+                        userOffer.slideUp(400, function(){
+
+                            $(this).remove();
+
+                        });
+
+                    }
+
+                } else {
+
+                    alert(data.content);
+
+                }
+
+            });
+
+            $('#container').on('click', '.list-offer-button-yes', function(){
+
+                socket.emit('joinUserOfferYes', {
+                    id: $(this).closest('.list-offer').data('id')
+                });
+
+            });
+
+            socket.on('serverJoinUserOfferYes', function(data){
+
+                if(data.status == 'success'){
+
+                    $('#list-offer-' + data.id).find('.list-offer-joined-users').html('').append(data.content);
+
+                } else {
+
+                    alert(data.content);
+
+                }
+
+            });
+
+            $('#container').on('click', '.list-offer-button-no', function(){
+
+                socket.emit('joinUserOfferNo', {
+                    id: $(this).closest('.list-offer').data('id')
+                });
+
+            });
+
+            socket.on('serverJoinUserOfferNo', function(data){
+
+                if(data.status == 'success'){
+
+                    $('#list-offer-' + data.id).find('.list-offer-joined-users').html('').append(data.content);
+
+                } else {
+
+                    alert(data.content);
+
+                }
+
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<div id="wrapper">
+    <%- body %>
+</div>
+</body>
+</html>

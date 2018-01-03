@@ -1,0 +1,37 @@
+<% layout('layouts/index') -%>
+<% block('metaTitle', metaTitle) -%>
+<div id="container">
+    <h1>
+        Вход
+    </h1>
+    <div class="container-row">
+        Еще не зарегистрированы?
+        <a href="/register">
+            Регистрация
+        </a>
+    </div>
+    <% if(typeof errorMessage != 'undefined'){ %>
+        <div class="container-row">
+            <div class="container-row-error">
+                <%= errorMessage %>
+            </div>
+        </div>
+    <% } %>
+    <form method="post">
+        <div class="container-row">
+            Логин:
+        </div>
+        <div class="container-row">
+            <input type="text" name="login" value="" />
+        </div>
+        <div class="container-row">
+            Пароль:
+        </div>
+        <div class="container-row">
+            <input type="password" name="password" />
+        </div>
+        <div class="container-row">
+            <input type="submit" value="Вход" />
+        </div>
+    </form>
+</div>

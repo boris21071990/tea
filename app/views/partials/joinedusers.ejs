@@ -1,0 +1,12 @@
+<% if(joinedUsers){ %>
+    <% joinedUsers.forEach(function(joinedUser){ %>
+        <div class="list-offer-joined-user">
+            <div class="list-offer-joined-user-photo">
+                <img src="photos/<%= joinedUser.user.photo %>" />
+            </div>
+            <div class="list-offer-joined-user-name">
+                <%= joinedUser.user.name %>
+            </div>
+        </div>
+    <% }); %>
+<% } %>

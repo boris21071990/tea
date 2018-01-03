@@ -1,0 +1,17 @@
+{
+  "port": 2557,
+  "mongoose": {
+    "url": "mongodb://localhost/tea",
+    "options": {
+      "server": {
+        "socketOptions": {
+          "keepAlive": 1
+        }
+      }
+    }
+  },
+  "session": {
+    "name": "connect.sid",
+    "secret": "teaApp"
+  }
+}

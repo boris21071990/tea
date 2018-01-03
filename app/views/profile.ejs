@@ -1,0 +1,52 @@
+<% layout('layouts/index') -%>
+<% block('metaTitle', metaTitle) -%>
+<div id="header">
+    <a href="/">
+        Главная
+    </a>
+    <a href="/profile">
+        Профиль
+    </a>
+    <a href="/logout">
+        Выход
+    </a>
+</div>
+<div id="container">
+    <h1>
+        Профиль
+    </h1>
+    <% if(typeof listErrors != 'undefined'){ %>
+        <% for(let i = 0; i < listErrors.length; i++){ %>
+            <div class="container-row">
+                <div class="container-row-error">
+                    <%= listErrors[i] %>
+                </div>
+            </div>
+        <% } %>
+    <% } %>
+    <% if(user.photo){ %>
+        <div class="container-row">
+            <div class="container-photo">
+                <img src="photos/<%= user.photo %>" />
+            </div>
+        </div>
+    <% } %>
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" name="photo" value="<%= user.photo %>" />
+        <div class="container-row">
+            Фото:
+        </div>
+        <div class="container-row">
+            <input type="file" name="photo" />
+        </div>
+        <div class="container-row">
+            Имя:
+        </div>
+        <div class="container-row">
+            <input type="text" name="name" value="<%= user.name %>" />
+        </div>
+        <div class="container-row">
+            <input type="submit" value="Сохранить" />
+        </div>
+    </form>
+</div>

@@ -1,0 +1,45 @@
+<% layout('layouts/index') -%>
+<% block('metaTitle', metaTitle) -%>
+<div id="container">
+    <h1>
+        Регистрация
+    </h1>
+    <div class="container-row">
+        Уже зарегистрированы?
+        <a href="/login">
+            Вход
+        </a>
+    </div>
+    <% if(typeof listErrors != 'undefined'){ %>
+        <% for(let i = 0; i < listErrors.length; i++){ %>
+            <div class="container-row">
+                <div class="container-row-error">
+                    <%= listErrors[i] %>
+                </div>
+            </div>
+        <% } %>
+    <% } %>
+    <form method="post">
+        <div class="container-row">
+            Имя:
+        </div>
+        <div class="container-row">
+            <input type="text" name="name" />
+        </div>
+        <div class="container-row">
+            Логин:
+        </div>
+        <div class="container-row">
+            <input type="text" name="login" />
+        </div>
+        <div class="container-row">
+            Пароль:
+        </div>
+        <div class="container-row">
+            <input type="password" name="password" />
+        </div>
+        <div class="container-row">
+            <input type="submit" value="Регистрация" />
+        </div>
+    </form>
+</div>
